@@ -1,15 +1,13 @@
 package cn.com.mooyea.blive.windows;
 
-import cn.hutool.http.Header;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import cn.com.mooyea.blive.listenter.BilibiliListener;
+import cn.com.mooyea.blive.system.InstallPython;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
-import java.net.HttpCookie;
-import java.util.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * <h1>BilibiliLiveMonitorWindow<h1>
@@ -44,9 +42,58 @@ import java.util.*;
 public class BilibiliLiveMonitorWindow {
     public static BilibiliLiveMonitorWindow instance = null;
     private JPanel panel1;
-    private JTextField cookie;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JButton stop;
+    private JButton start;
+    private JButton wordCloud;
+    private JButton statistics;
+    private JTextField biliJct;
+    private JTextField sessData;
+    private JTextField userId;
+    private JTextField buvId3;
+    private JTextField welCome;
+    private JTextField roomId;
+    private JLabel title;
+    public JTextArea logger;
+    private JButton systemCheck;
+
+
+    public BilibiliLiveMonitorWindow() {
+        stop.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        start.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (start.isEnabled()) {
+                    logger.setText("start被点啦");
+                }
+                super.mouseClicked(e);
+            }
+        });
+        wordCloud.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        statistics.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        systemCheck.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (systemCheck.isEnabled()) {
+                    BilibiliListener.systemCheck(stop,start,wordCloud,statistics,systemCheck,logger,e);
+                }
+            }
+        });
+    }
 
     public static BilibiliLiveMonitorWindow getInstance(){
         if (instance == null){
@@ -59,6 +106,17 @@ public class BilibiliLiveMonitorWindow {
      * 初始化UI
      */
     public void initUi() {
+        JFrame jFrame = new JFrame("Bilibili 直播监控");
+        jFrame.setVisible(true);
+        jFrame.setBackground(Color.BLUE);
+        jFrame.setBounds(377, 377, 800, 300);
+        jFrame.add(this.panel1);
+        jFrame.setResizable(false);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        BilibiliLiveMonitorWindow.getInstance().initUi();
     }
 
 }
